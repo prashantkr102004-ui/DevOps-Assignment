@@ -3,6 +3,9 @@ minikube start
 minikube status
 kubectl cluster-info
 kubectl get nodes
+Write-Host "Waiting for the cluster to be ready..." -ForegroundColor Yellow
+kubectl wait --for=condition=Ready node --all --timeout=180s
+while (-not (kubectl get serviceaccount default -o name 2>$null)) { Start-Sleep 2 }
 docker build -t flask-app .
 minikube image load flask-app:latest
 kubectl apply -f flask-deployment.yaml

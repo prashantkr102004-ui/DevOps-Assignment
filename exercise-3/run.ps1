@@ -1,6 +1,9 @@
 Set-Location $PSScriptRoot
 minikube start --nodes=1
 kubectl get nodes
+Write-Host "Waiting for the cluster to be ready..." -ForegroundColor Yellow
+kubectl wait --for=condition=Ready node --all --timeout=180s
+while (-not (kubectl get serviceaccount default -o name 2>$null)) { Start-Sleep 2 }
 docker build -t flashsale:1.1 .
 minikube image load flashsale:1.1
 kubectl apply -f flashsale-replicaset.yaml
