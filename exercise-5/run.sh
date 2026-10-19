@@ -4,6 +4,7 @@ cd "$(dirname "$0")"
 pause() { read -rp "$1 - take the screenshot, then press Enter... "; clear; }
 
 echo "== Checking AppArmor =="
+mountpoint -q /sys/kernel/security || sudo mount -t securityfs securityfs /sys/kernel/security
 if [ "$(cat /sys/module/apparmor/parameters/enabled 2>/dev/null)" != "Y" ]; then
   echo "AppArmor is NOT enabled in WSL. Follow the setup steps first."; exit 1
 fi
