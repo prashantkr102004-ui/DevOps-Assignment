@@ -1,0 +1,52 @@
+pipeline {
+    agent any
+
+    environment {
+        PROJECT_DIR = 'exercise-6'
+        IMAGE_NAME  = 'delivery-metrics:latest'
+    }
+
+    stages {
+        stage('Check Docker') {
+            steps {
+                sh 'docker --version'
+                sh 'docker ps'
+            }
+        }
+
+        stage('Validate Files') {
+            steps {
+                dir("${PROJECT_DIR}") {
+                    sh '''
+                        for f in delivery_metrics.py requirements.txt Dockerfile prometheus.yml alert_rules.yml; do
+                            test -f "$f" || { echo "Missing $f"; exit 1; }
+                            echo "Found $f"
+                        done
+                    '''
+                }
+            }
+        }
+
+        stage('Build Image') {
+            steps {
+                dir("${PROJECT_DIR}") {
+                    sh 'docker build -t "$IMAGE_NAME" .'
+                }
+            }
+        }
+
+        stage('Verify Monitoring') {
+            steps {
+                sh '''
+                    docker image inspect "$IMAGE_NAME" > /dev/null
+                    docker ps --format '{{.Names}}' | grep -E 'prometheus|grafana'
+                '''
+            }
+        }
+    }
+
+    post {
+        success { echo 'Delivery monitoring pipeline completed successfully!' }
+        failure { echo 'Pipeline failed. Check the console output.' }
+    }
+}

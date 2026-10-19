@@ -1,0 +1,78 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyd
+.Python
+.venv/
+venv/
+env/
+ENV/
+pip-wheel-metadata/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+secrets/
+credentials/
+
+# Logs and temporary files
+*.log
+logs/
+tmp/
+temp/
+*.tmp
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Build and package artifacts
+build/
+dist/
+*.egg-info/
+
+# Docker overrides and local-only configuration
+docker-compose.override.yml
+
+# Terraform (if used in other DevOps exercises)
+.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+crash.*.log
+
+# Kubernetes local/generated files
+.kube/
+*.kubeconfig
+
+# Local virtual machines and large generated artifacts
+*.vdi
+*.vmdk
+*.vhd
+*.vhdx
+
+# Node.js projects in this DevOps assignment folder
+node_modules/
+.next/
+out/
+coverage/
+
+# Keep project documentation and evidence
+!README.md
+!**/README.md
+!images/
+!**/images/

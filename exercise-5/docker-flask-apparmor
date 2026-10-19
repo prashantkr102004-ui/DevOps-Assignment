@@ -1,0 +1,31 @@
+#include <tunables/global>
+
+profile docker-flask-apparmor flags=(attach_disconnected,mediate_deleted) {
+  #include <abstractions/base>
+  #include <abstractions/python>
+
+  network inet tcp,
+  network inet udp,
+
+  # Application and runtime
+  /app/** r,
+  /usr/** rix,
+  /bin/** rix,
+  /lib/** mr,
+  /tmp/** rw,
+  /proc/** r,
+  /etc/** r,
+
+  # Sensitive files and directories
+  deny /etc/shadow r,
+  deny /etc/gshadow r,
+  deny /root/** rwklx,
+  deny /var/** w,
+
+  # Administrative capabilities
+  deny capability sys_admin,
+  deny capability sys_module,
+  deny capability sys_ptrace,
+  deny mount,
+  deny umount,
+}
