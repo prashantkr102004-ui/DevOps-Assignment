@@ -16,6 +16,9 @@ if ! command -v apparmor_parser >/dev/null || ! sudo docker info >/dev/null 2>&1
   sudo service docker start
   sleep 3
 fi
+if ! sudo docker info --format '{{.SecurityOptions}}' | grep -q apparmor; then
+  echo "Restarting Docker so it detects AppArmor..."; sudo service docker restart; sleep 3
+fi
 sudo docker rm -f flask-secure sdk-flask-secure >/dev/null 2>&1
 clear
 
