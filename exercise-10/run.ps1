@@ -1,5 +1,5 @@
 Set-Location $PSScriptRoot
-minikube start --nodes=3 -p devops-multinode
+minikube start --nodes=3 --memory=2200 --cpus=2 -p devops-multinode
 kubectl get nodes
 Write-Host "Waiting for the cluster to be ready..." -ForegroundColor Yellow
 kubectl wait --for=condition=Ready node --all --timeout=180s
