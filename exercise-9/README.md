@@ -25,24 +25,24 @@ Jenkins needs Python inside the container:
 docker run -d --name jenkins -p 8080:8080 -p 50000:50000 -v jenkins_home:/var/jenkins_home jenkins/jenkins:lts
 docker exec -u root jenkins bash -c "apt-get update && apt-get install -y python3 python3-venv python3-pip"
 ```
-![Docker and Jenkins setup](images/01-docker-jenkins-setup.png)
+![Docker and Jenkins setup](images/1.png)
 
-![Jenkins dashboard](images/02-jenkins-dashboard.png)
+![Jenkins dashboard](images/2.png)
 
 Create a **Pipeline** job → *Pipeline script from SCM* → Git → `https://github.com/prashantkr102004-ui/DevOps-Assignment.git`
 
-![Pipeline configuration](images/03-pipeline-configuration.png)
+![Pipeline configuration](images/3.png)
 
 Branch `*/main`, script path `exercise-9/python-flask-app/Jenkinsfile`.
 
-![Script path](images/04-pipeline-script-path.png)
+![Script path](images/4.png)
 
 ## Run it
 Click **Build Now**.
 
-![Stages passed](images/05-successful-pipeline-stages.png)
+![Stages passed](images/5.png)
 
-![Console output](images/06-console-output-success.png)
+![Console output](images/6.png)
 > 📸 Screenshot: `HTTP health check passed.` and `Finished: SUCCESS`.
 
 ## Run locally (optional)
